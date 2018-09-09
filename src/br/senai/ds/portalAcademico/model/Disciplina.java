@@ -10,8 +10,11 @@ public class Disciplina {
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
     }
-
     
+    public Disciplina(){
+        
+    }
+
     public int getCodigo() {
         return codigo;
     }
@@ -34,5 +37,10 @@ public class Disciplina {
 
     public void setCargaHoraria(int cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
+    }
+    
+    @Override
+    public String toString(){
+        return "Código " + this.codigo + " | Nome: " + this.nome + " | Carga Horária: " + this.cargaHoraria;
     }
 }

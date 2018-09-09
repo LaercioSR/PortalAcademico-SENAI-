@@ -1,26 +1,29 @@
 package br.senai.ds.portalAcademico.model;
 
 public class Professor {
-    private String cpf;
+    private int matricula;
     private String nome;
     private String email;
     private String telefone;
 
     
-    public Professor(String cpf, String nome, String email, String telefone) {
-        this.cpf = cpf;
+    public Professor(String nome, String email, String telefone) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
     }
 
-    
-    public String getCpf() {
-        return cpf;
+    public Professor(){
+        
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
 
     public String getNome() {
@@ -45,5 +48,10 @@ public class Professor {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+    
+    @Override
+    public String toString(){
+        return "Matrícula " + this.matricula + " | Nome: " + this.nome + " | Email: " + this.email + " | Telefone: " + this.telefone;
     }
 }

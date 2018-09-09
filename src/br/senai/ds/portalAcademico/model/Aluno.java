@@ -5,13 +5,16 @@ public class Aluno {
     private String nome;
     private String telefone;
 
-    
-    public Aluno(int matricula, String nome, String telefone) {
-        this.matricula = matricula;
-        this.nome = nome;
-        this.telefone = telefone;
-    }
 
+
+    public Aluno(String nome, String telefone) {
+       this.nome = nome;
+       this.telefone = telefone;
+    }
+    
+    public Aluno(){
+        
+    }
     
     public int getMatricula() {
         return matricula;
@@ -35,5 +38,10 @@ public class Aluno {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+    
+    @Override
+    public String toString() {
+	return "Matricula: " + this.matricula + " Nome: " + this.nome + " Telefone: " + this.telefone;
     }
 }

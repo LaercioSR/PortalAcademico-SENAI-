@@ -11,7 +11,7 @@ public class ConexaoJDBC {
 
     public Connection conectar() {
         try {
-            this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/portal_academico", "root","");
+            this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/portal_academico", "root", "");
         } catch (SQLException ex) {
             Logger.getLogger(ConexaoJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
