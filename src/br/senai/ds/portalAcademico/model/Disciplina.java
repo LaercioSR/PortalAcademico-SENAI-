@@ -41,6 +41,6 @@ public class Disciplina {
     
     @Override
     public String toString(){
-        return "Código " + this.codigo + " | Nome: " + this.nome + " | Carga Horária: " + this.cargaHoraria;
+        return "Código " + this.codigo + " | Nome: " + this.nome + " | Carga Horária: " + this.cargaHoraria + "\n";
     }
 }

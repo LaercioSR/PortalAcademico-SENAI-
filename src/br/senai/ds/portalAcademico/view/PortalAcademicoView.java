@@ -7,7 +7,7 @@ import java.io.IOException;
 public class PortalAcademicoView {
     static PortalAcademicoController controller;
     
-    public static void menu() {
+    private static void menu() {
         System.out.println();
         System.out.println("\t======================================");
         System.out.println("\t||         Portal Acadêmico         ||");
@@ -31,7 +31,8 @@ public class PortalAcademicoView {
             System.out.println(" 1 - Cadastrar Aluno");
             System.out.println(" 2 - Remover Aluno");
             System.out.println(" 3 - Listar ou Buscar Aluno(s)");
-            System.out.println(" 4 - Voltar");
+            System.out.println(" 4 - Cadastrar Aluno em Disciplina");
+            System.out.println(" 5 - Voltar");
             System.out.print(">>>>>>   ");
             opcao = Console.readInt();
             
@@ -46,12 +47,15 @@ public class PortalAcademicoView {
                     listarAlunos();
                     break;
                 case 4:
+                    cadastrarAlunoDisciplina();
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println();
                     System.out.println("Valor Digitado Invalido");
             }
-        } while(opcao < 1 || opcao > 4);
+        } while(opcao < 1 || opcao > 5);
     }
 
     private static void cadastrarAluno() throws IOException {
@@ -85,7 +89,8 @@ public class PortalAcademicoView {
             System.out.println(" 1 - Listar todos alunos");
             System.out.println(" 2 - Buscar aluno pela matrícula");
             System.out.println(" 3 - Buscar aluno por nome");
-            System.out.println(" 4 - Voltar");
+            System.out.println(" 4 - Listar disciplinas de um aluno");
+            System.out.println(" 5 - Voltar");
             System.out.print(">>>>>>   ");
             opcao = Console.readInt();
             
@@ -107,14 +112,32 @@ public class PortalAcademicoView {
                     
                     break;
                 case 4:
+                    System.out.print("Digite a matrícula do aluno: ");
+                    matricula = Console.readInt();
+                    System.out.println(controller.obterDisciplinasAluno(matricula));
+                    break;
+                case 5:
                     menuAlunos();
                     break;
                 default:
                     System.out.println();
                     System.out.println("Valor Digitado Invalido");
             }
-        } while(opcao < 1 || opcao > 4);
+        } while(opcao < 1 || opcao > 5);
         
+    }
+    
+    private static void cadastrarAlunoDisciplina() throws IOException {
+        int matricula;
+        int idDisciplina;
+        
+        System.out.println("\n\n  Cadastrar Aluno em Disciplina");
+        System.out.print("   Digite a matrícula do aluno: ");
+        matricula = Console.readInt();
+        System.out.print("   Digite o código da disciplina: ");
+        idDisciplina = Console.readInt();
+        
+        controller.cadastrarAlunoDisciplina(matricula, idDisciplina);
     }
 
     private static void menuProfessores() throws IOException {
@@ -125,7 +148,8 @@ public class PortalAcademicoView {
             System.out.println(" 1 - Cadastrar Professor");
             System.out.println(" 2 - Remover Professor");
             System.out.println(" 3 - Listar ou Buscar Professor(es)");
-            System.out.println(" 4 - Voltar");
+            System.out.println(" 4 - Cadastrar Professor em Disciplina");
+            System.out.println(" 5 - Voltar");
             System.out.print(">>>>>>   ");
             opcao = Console.readInt();
             
@@ -140,12 +164,15 @@ public class PortalAcademicoView {
                     listarProfessores();
                     break;
                 case 4:
+                    cadastrarProfessorDisciplina();
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println();
                     System.out.println("Valor Digitado Invalido");
             }
-        } while(opcao < 1 || opcao > 4);
+        } while(opcao < 1 || opcao > 5);
     }
     
     private static void cadastrarProfessor() throws IOException {
@@ -183,7 +210,8 @@ public class PortalAcademicoView {
             System.out.println(" 1 - Listar todos professores");
             System.out.println(" 2 - Buscar professor pela matrícula");
             System.out.println(" 3 - Buscar professor por nome");
-            System.out.println(" 4 - Voltar");
+            System.out.println(" 4 - Listar disciplinas de um professor");
+            System.out.println(" 5 - Voltar");
             System.out.print(">>>>>>   ");
             opcao = Console.readInt();
             
@@ -204,17 +232,137 @@ public class PortalAcademicoView {
                     System.out.println(controller.obterProfessorPorNome(nome));
                     break;
                 case 4:
-                    listarAlunos();
+                    System.out.print("Digite a matrícula do professor: ");
+                    matricula = Console.readInt();
+                    System.out.println(controller.obterDisciplinasProfessor(matricula));
+                    break;
+                case 5:
+                    listarProfessores();
+                    break;
+                default:
+                    System.out.println();
+                    System.out.println("Valor Digitado Invalido");
+            }
+        } while(opcao < 1 || opcao > 5);
+        
+    }
+    
+    private static void cadastrarProfessorDisciplina() throws IOException {
+        int matricula;
+        int idDisciplina;
+        
+        System.out.println("\n\n  Cadastrar Professor em Disciplina");
+        System.out.print("   Digite a matrícula do professor: ");
+        matricula = Console.readInt();
+        System.out.print("   Digite o código da disciplina: ");
+        idDisciplina = Console.readInt();
+        
+        controller.cadastrarProfessorDisciplina(matricula, idDisciplina);
+    }
+    
+    private static void menuDisciplinas() throws IOException {
+        int opcao;
+        
+        do {
+            System.out.println("\n  DIGITE A OPÇÃO DESEJADA:");
+            System.out.println(" 1 - Cadastrar Disciplina");
+            System.out.println(" 2 - Remover Disciplina");
+            System.out.println(" 3 - Listar ou Buscar Disciplina(s)");
+            System.out.println(" 4 - Voltar");
+            System.out.print(">>>>>>   ");
+            opcao = Console.readInt();
+            
+            switch(opcao){
+                case 1:
+                    cadastrarDisciplina();
+                    break;
+                case 2:
+                    removerDisciplina();
+                    break;
+                case 3:
+                    listarDisciplinas();
+                    break;
+                case 4:
                     break;
                 default:
                     System.out.println();
                     System.out.println("Valor Digitado Invalido");
             }
         } while(opcao < 1 || opcao > 4);
-        
     }
     
-    private static void menuDisciplinas() {
+    private static void cadastrarDisciplina() throws IOException {
+        String nome;
+        int cargaHoraria;
+        
+        System.out.println("\n\n  Cadastrar Disciplina");
+        System.out.print("   Digite o nome da disciplina: ");
+        nome = Console.readString();
+        System.out.print("   Digite a carga horária da disciplina: ");
+        cargaHoraria = Console.readInt();
+        
+        controller.cadastrarDisciplina(nome, cargaHoraria);
+    }
+
+    private static void removerDisciplina() throws IOException {
+        int codigo;
+        
+        System.out.println("\n\n  Remover Disciplina");
+        System.out.print("   Digite o código da disciplina: ");
+        codigo = Console.readInt();
+        
+        controller.removerDisciplina(codigo);
+    }
+
+
+    private static void listarDisciplinas() throws IOException {
+        int opcao;
+        
+        do {
+            System.out.println("\n  DIGITE A OPÇÃO DESEJADA:");
+            System.out.println(" 1 - Listar todos disciplinas");
+            System.out.println(" 2 - Buscar disciplina pela matrícula");
+            System.out.println(" 3 - Buscar disciplina por nome");
+            System.out.println(" 4 - Buscar professor de uma disciplina");
+            System.out.println(" 5 - Listar alunos de uma disciplina");
+            System.out.println(" 6 - Voltar");
+            System.out.print(">>>>>>   ");
+            opcao = Console.readInt();
+            
+            switch(opcao){
+                case 1:
+                    System.out.println(controller.listarDisciplina());
+                    break;
+                case 2:
+                    int codigo;
+                    System.out.print("Digite o código que deseja buscar: ");
+                    codigo = Console.readInt();
+                    System.out.println(controller.obterDisciplinaPorCodigo(codigo));
+                    break;
+                case 3:
+                    String nome;
+                    System.out.print("Digite o nome que deseja buscar: ");
+                    nome = Console.readString();
+                    System.out.println(controller.obterDisciplinaPorNome(nome));
+                    break;
+                case 4:
+                    System.out.print("Digite o código da disciplina: ");
+                    codigo = Console.readInt();
+                    System.out.println(controller.obterProfessorDisciplina(codigo));
+                    break;
+                case 5:
+                    System.out.print("Digite o código da disciplina: ");
+                    codigo = Console.readInt();
+                    System.out.println(controller.obterAlunosDisciplina(codigo));
+                    break;
+                case 6:
+                    listarDisciplinas();
+                    break;
+                default:
+                    System.out.println();
+                    System.out.println("Valor Digitado Invalido");
+            }
+        } while(opcao < 1 || opcao > 6);
         
     }
     

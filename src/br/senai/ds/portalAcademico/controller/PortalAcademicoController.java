@@ -4,12 +4,12 @@ import br.senai.ds.portalAcademico.model.Aluno;
 import br.senai.ds.portalAcademico.model.Professor;
 import br.senai.ds.portalAcademico.model.Disciplina;
 import br.senai.ds.portalAcademico.model.dao.AlunoDAO;
+import br.senai.ds.portalAcademico.model.dao.AlunoDisciplinaDAO;
 import br.senai.ds.portalAcademico.model.dao.ConexaoJDBC;
+import br.senai.ds.portalAcademico.model.dao.DisciplinaDAO;
 import br.senai.ds.portalAcademico.model.dao.ProfessorDAO;
-import br.senai.ds.portalAcademico.util.Console;
-import java.io.IOException;
+import br.senai.ds.portalAcademico.model.dao.ProfessorDisciplinaDAO;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PortalAcademicoController {
@@ -17,11 +17,13 @@ public class PortalAcademicoController {
     private final Connection connection = database.conectar();
     private final AlunoDAO alunoDAO = new AlunoDAO();
     private final ProfessorDAO professorDAO = new ProfessorDAO();
+    private final DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+    private final AlunoDisciplinaDAO alunoDisciplinaDAO = new AlunoDisciplinaDAO();
+    private final ProfessorDisciplinaDAO professorDisciplinaDAO = new ProfessorDisciplinaDAO();
 
     
     public PortalAcademicoController() {
-        this.alunoDAO.setConnection(connection);
-        this.professorDAO.setConnection(connection);
+        
     }
 
     public void cadastrarAluno(String nome, String telefone) {
@@ -66,4 +68,49 @@ public class PortalAcademicoController {
         return professorDAO.obterPorNome(nome);
     }
 
+    
+    public void cadastrarDisciplina(String nome, int cargaHoraria){
+        Disciplina disciplina = new Disciplina(nome, cargaHoraria);
+        disciplinaDAO.inserir(disciplina);
+    }
+    
+    public void removerDisciplina(int codigo) {
+        disciplinaDAO.remover(codigo);
+    }
+    
+    public List<Disciplina> listarDisciplina(){
+        return disciplinaDAO.listar();
+    }
+
+    public Disciplina obterDisciplinaPorCodigo(int codigo) {
+        return disciplinaDAO.obterPorMatricula(codigo);
+    }
+
+    public Disciplina obterDisciplinaPorNome(String nome) {
+        return disciplinaDAO.obterPorNome(nome);
+    }
+
+    public List<Disciplina> obterDisciplinasAluno(int matricula) {
+        return alunoDisciplinaDAO.buscarDisciplinasAluno(matricula);
+    }
+
+    public void cadastrarAlunoDisciplina(int matricula, int idDisciplina) {
+        alunoDisciplinaDAO.iserir(matricula, idDisciplina);
+    }
+
+    public List<Disciplina> obterDisciplinasProfessor(int matricula) {
+        return professorDisciplinaDAO.buscarDisciplinasProfessor(matricula);
+    }
+
+    public void cadastrarProfessorDisciplina(int matricula, int idDisciplina) {
+        professorDisciplinaDAO.iserir(matricula, idDisciplina);
+    }
+
+    public Professor obterProfessorDisciplina(int codigo) {
+        return professorDisciplinaDAO.buscarProfessorDisciplina(codigo);
+    }
+
+    public List<Aluno> obterAlunosDisciplina(int codigo) {
+        return alunoDisciplinaDAO.buscarAlunosDisciplina(codigo);
+    }
 }

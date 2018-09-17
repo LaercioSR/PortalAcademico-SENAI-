@@ -52,6 +52,6 @@ public class Professor {
     
     @Override
     public String toString(){
-        return "Matrícula " + this.matricula + " | Nome: " + this.nome + " | Email: " + this.email + " | Telefone: " + this.telefone;
+        return "Matrícula " + this.matricula + " | Nome: " + this.nome + " | Email: " + this.email + " | Telefone: " + this.telefone + "\n";
     }
 }

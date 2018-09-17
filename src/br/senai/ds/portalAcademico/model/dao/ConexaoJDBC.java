@@ -2,25 +2,33 @@ package br.senai.ds.portalAcademico.model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ConexaoJDBC {
-    private Connection connection;
-
-    public Connection conectar() {
+    public static Connection conectar() {
         try {
-            this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/portal_academico", "root", "");
+            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/portal_academico", "root", "");
         } catch (SQLException ex) {
             Logger.getLogger(ConexaoJDBC.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return this.connection;
     }
 
-    public void desconectar(Connection connection) {
+    public static void desconectar(Connection conn, PreparedStatement pstm, ResultSet rs) {
         try {
-            connection.close();
+            if (conn != null) {
+                conn.close();
+            }
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (rs != null) {
+               rs.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ConexaoJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
